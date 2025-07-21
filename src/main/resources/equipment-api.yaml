@@ -1,0 +1,156 @@
+openapi: 3.0.4
+info:
+  title: Equipment Management API
+  version: 1.0.0
+  description: API for managing equipment assigned to employees
+
+tags:
+  - name: "Equipment"
+
+paths:
+  /equipments:
+    get:
+      tags:
+        - "Equipment"
+      summary: Equipment list
+      responses:
+        '200':
+          description: List returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Equipment'
+        '404':
+          description: Equipment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountNotFoundError'
+    post:
+      tags:
+        - "Equipment"
+      summary: Add new equipment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentRequest'
+      responses:
+        '201':
+          description: Equipment successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+
+  /equipments/{id}:
+    get:
+      tags:
+        - "Equipment"
+      summary: Get equipment by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Equipment found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+        '404':
+          description: Equipment not found
+
+    put:
+      tags:
+        - "Equipment"
+      summary: Update equipment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentRequest'
+      responses:
+        '200':
+          description: Updated equipment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+
+    delete:
+      tags:
+        - "Equipment"
+      summary: Delete equipment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Equipment removed
+
+components:
+  schemas:
+    Equipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Laptop"
+        brand:
+          type: string
+          example: "Dell"
+        quantity:
+          type: integer
+          example: 5
+        employee:
+          type: string
+          example: "Michele"
+        status:
+          type: string
+          example: "assigned"
+
+    EquipmentRequest:
+      type: object
+      required:
+        - name
+        - brand
+        - quantity
+        - employee
+        - status
+      properties:
+        name:
+          type: string
+        brand:
+          type: string
+        quantity:
+          type: integer
+        employee:
+          type: string
+        status:
+          type: string
+
+    AccountNotFoundError:
+      type: object
+      properties:
+        message:
+          type: string
