@@ -1,6 +1,6 @@
-package com.example.registration.entities;
+package com.example.registration.employee.equipment.entities;
 
-import com.example.registration.enums.StatutEquipment;
+import com.example.registration.employee.equipment.enums.StatutEquipment;
 import jakarta.persistence.*;
 import lombok.*;
 

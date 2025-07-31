@@ -3,11 +3,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.example.registration.controller;
+package com.example.registration.employee.equipment.controller;
 
-import com.example.registration.dto.AccountNotFoundError;
-import com.example.registration.dto.Equipment;
-import com.example.registration.dto.EquipmentRequest;
+import com.example.registration.employee.equipment.dto.EquipmentNotFoundError;
+import com.example.registration.employee.equipment.dto.Equipment;
+import com.example.registration.employee.equipment.dto.EquipmentRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,17 +16,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import jakarta.validation.Valid;
 
 import java.util.List;
-import java.util.Optional;
+
 import jakarta.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-24T12:07:16.384698600+04:00[Asia/Dubai]", comments = "Generator version: 7.8.0")
@@ -49,7 +46,7 @@ public interface EquipmentsApi {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Equipment.class)))
             }),
             @ApiResponse(responseCode = "404", description = "Equipment not found", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = AccountNotFoundError.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = EquipmentNotFoundError.class))
             })
         }
     )

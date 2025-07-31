@@ -1,7 +1,7 @@
-package com.example.registration.service;
+package com.example.registration.employee.equipment.service;
 
-import com.example.registration.dto.Equipment;
-import com.example.registration.dto.EquipmentRequest;
+import com.example.registration.employee.equipment.dto.Equipment;
+import com.example.registration.employee.equipment.dto.EquipmentRequest;
 
 import java.util.List;
 

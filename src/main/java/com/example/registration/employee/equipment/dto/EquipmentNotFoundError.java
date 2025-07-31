@@ -1,4 +1,4 @@
-package com.example.registration.dto;
+package com.example.registration.employee.equipment.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,11 +12,11 @@ import jakarta.annotation.Generated;
  */
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-24T12:07:16.384698600+04:00[Asia/Dubai]", comments = "Generator version: 7.8.0")
-public class AccountNotFoundError {
+public class EquipmentNotFoundError {
 
   private String message;
 
-  public AccountNotFoundError message(String message) {
+  public EquipmentNotFoundError message(String message) {
     this.message = message;
     return this;
   }
@@ -44,7 +44,7 @@ public class AccountNotFoundError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountNotFoundError accountNotFoundError = (AccountNotFoundError) o;
+    EquipmentNotFoundError accountNotFoundError = (EquipmentNotFoundError) o;
     return Objects.equals(this.message, accountNotFoundError.message);
   }
 

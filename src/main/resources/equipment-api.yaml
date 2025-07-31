@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountNotFoundError'
+                $ref: '#/components/schemas/EquipmentNotFoundError'
     post:
       tags:
         - "Equipment"

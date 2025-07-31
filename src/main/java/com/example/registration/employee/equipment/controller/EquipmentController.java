@@ -1,8 +1,8 @@
-package com.example.registration.controller;
+package com.example.registration.employee.equipment.controller;
 
-import com.example.registration.dto.Equipment;
-import com.example.registration.dto.EquipmentRequest;
-import com.example.registration.service.EquipmentService;
+import com.example.registration.employee.equipment.dto.Equipment;
+import com.example.registration.employee.equipment.dto.EquipmentRequest;
+import com.example.registration.employee.equipment.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

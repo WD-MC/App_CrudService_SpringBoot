@@ -1,4 +1,4 @@
-package com.example.registration.dto;
+package com.example.registration.employee.equipment.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;

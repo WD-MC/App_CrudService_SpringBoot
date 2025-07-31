@@ -1,9 +1,9 @@
-package com.example.registration.mapper;
+package com.example.registration.employee.equipment.mapper;
 
-import com.example.registration.dto.Equipment;
-import com.example.registration.dto.EquipmentRequest;
-import com.example.registration.entities.EquipmentEntity;
-import com.example.registration.enums.StatutEquipment;
+import com.example.registration.employee.equipment.dto.Equipment;
+import com.example.registration.employee.equipment.dto.EquipmentRequest;
+import com.example.registration.employee.equipment.entities.EquipmentEntity;
+import com.example.registration.employee.equipment.enums.StatutEquipment;
 import org.springframework.stereotype.Component;
 
 @Component

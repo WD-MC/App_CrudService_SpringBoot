@@ -1,4 +1,4 @@
-package com.example.registration.enums;
+package com.example.registration.employee.equipment.enums;
 
 public enum StatutEquipment {
 
@@ -16,12 +16,12 @@ public enum StatutEquipment {
         return value;
     }
 
-    public static StatutEquipment fromValue(String value){
+    /*public static StatutEquipment fromValue(String value){
         for (StatutEquipment statut : StatutEquipment.values()){
             if (statut.value.equalsIgnoreCase(value)){
                 return statut;
             }
         }
         throw new IllegalArgumentException("Statut non valide: " + value);
-    }
+    }*/
 }

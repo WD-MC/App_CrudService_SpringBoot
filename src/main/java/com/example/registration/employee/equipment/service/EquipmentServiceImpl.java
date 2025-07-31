@@ -1,10 +1,10 @@
-package com.example.registration.service;
+package com.example.registration.employee.equipment.service;
 
-import com.example.registration.dto.Equipment;
-import com.example.registration.dto.EquipmentRequest;
-import com.example.registration.entities.EquipmentEntity;
-import com.example.registration.mapper.EquipmentMapper;
-import com.example.registration.repository.EquipmentRepository;
+import com.example.registration.employee.equipment.dto.Equipment;
+import com.example.registration.employee.equipment.dto.EquipmentRequest;
+import com.example.registration.employee.equipment.entities.EquipmentEntity;
+import com.example.registration.employee.equipment.mapper.EquipmentMapper;
+import com.example.registration.employee.equipment.repository.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
