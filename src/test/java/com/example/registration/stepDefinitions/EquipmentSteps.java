@@ -144,7 +144,6 @@ public class EquipmentSteps {
         String responseBody = response.getResponse().getContentAsString();
         Map<?, ?> responseMap = objectMapper.readValue(responseBody, Map.class);
         this.lastCreatedEquipmentId = Long.valueOf(responseMap.get("id").toString());
-        System.out.println("id est creer au put: "+lastCreatedEquipmentId);
     }
 
     @And("je mets à jour l'équipement avec les données suivantes:")
@@ -221,5 +220,51 @@ public class EquipmentSteps {
     public void lequipement_ne_doit_plus_exister_en_base() {
         boolean exists = equipmentRepository.findById(Math.toIntExact(lastCreatedEquipmentId)).isPresent();
         Assertions.assertFalse(exists, "L'équipement existe toujours en base !");
+    }
+
+    /**
+     * Recuperer un equipement par ID
+     */
+    @Given("un équipement possede les données suivantes:")
+    public void un_equipement_possede_les_donnees_suivantes(io.cucumber.datatable.DataTable dataTable) {
+        Map<String, String> data = dataTable.asMaps().getFirst();
+        this.equipmentRequest = new EquipmentRequest(
+                data.get("name"),
+                data.get("brand"),
+                Integer.parseInt(data.get("quantity")),
+                data.get("employee"),
+                data.get("status")
+        );
+    }
+
+    @When("je crée un nouveau équipement")
+    public void je_cree_un_nouveau_equipement() throws Exception {
+        String json = objectMapper.writeValueAsString(equipmentRequest);
+        this.response = mockMvc.perform(post("/equipments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andReturn();
+        String responseBody = response.getResponse().getContentAsString();
+        Map<?, ?> responseMap = objectMapper.readValue(responseBody, Map.class);
+        this.lastCreatedEquipmentId = Long.valueOf(responseMap.get("id").toString());
+
+    }
+    @And("je récupère l'équipement par son ID via l'API")
+    public void je_recupere_lequipement_par_son_id_via_lapi() throws Exception {
+        this.response = mockMvc.perform(get("/equipments/" + lastCreatedEquipmentId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+
+    @Then("la réponse du get par ID doit avoir le code {int}")
+    public void la_reponse_du_get_par_id_doit_avoir_le_code(int expectedStatus) {
+        int actualStatus = response.getResponse().getStatus();
+        Assertions.assertEquals(expectedStatus, actualStatus);
+    }
+
+    @And("le corps de la réponse doit contenir l'équipement {string}")
+    public void le_corps_de_la_reponse_doit_contenir_lequipement(String expectedName) throws Exception {
+        String content = response.getResponse().getContentAsString();
+        Assertions.assertTrue(content.contains(expectedName), "La réponse ne contient pas l'équipement: " + expectedName);
     }
 }

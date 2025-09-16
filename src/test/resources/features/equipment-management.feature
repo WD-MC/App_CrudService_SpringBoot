@@ -36,3 +36,12 @@ Feature: API de Gestion des équipements
     When je supprime l'équipement par son ID
     Then la réponse du delete a pour code 204
     And l'équipement ne doit plus exister en base
+
+  Scenario: Récupération d’un équipement par son ID
+    Given un équipement possede les données suivantes:
+      | name   | brand | quantity | employee | status     |
+      | Keyboard | Logitech | 2 | Carol | disponible |
+    When je crée un nouveau équipement
+    And je récupère l'équipement par son ID via l'API
+    Then la réponse du get par ID doit avoir le code 200
+    And le corps de la réponse doit contenir l'équipement "Keyboard"
