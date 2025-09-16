@@ -14,6 +14,16 @@ Feature: API de Gestion des équipements
       | Laptop  | Dell  | 5        | Michele  | disponible |
       | Monitor | Dell  | 6        | John     | attribue   |
     When J'envoie une requête GET via l’API
-    Then La reponse doit avoir le code 200
-    And Le nombre d'équipements retournés doit etre de 2
+    Then La reponse du get doit avoir le code 200
+    And la réponse doit contenir 2 équipements
 
+  Scenario: Mise à jour d’un équipement
+    Given un équipement ayant les données suivantes:
+      | name   | brand | quantity | employee | status     |
+      | Laptop | Dell  | 5        | Alice    | disponible |
+    When Via l'API je crée l'équipement
+    And je mets à jour l'équipement avec les données suivantes:
+      | name     | brand | quantity | employee | status  |
+      | Laptop X | Dell  | 10       | Alice    | attribue |
+    Then la réponse du put doit avoir le code 200
+    And le corps de la réponse doit avoir "Laptop X"
