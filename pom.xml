@@ -45,6 +45,21 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.8.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -54,10 +69,70 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>7.14.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>7.12.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Cucumber JUnit Platform -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>7.14.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.10.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<version>1.13.4</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.8.0</version>
+				<executions>
+					<execution>
+						<id>generate-spring</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/equipment-api.yaml</inputSpec>
+							<generatorName>spring</generatorName>
+							<output>${project.build.directory}/generated-sources/openapi</output>
+							<apiPackage>com.example.registration.api</apiPackage>
+							<modelPackage>com.example.registration.model</modelPackage>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<useSpringBoot3>true</useSpringBoot3>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
