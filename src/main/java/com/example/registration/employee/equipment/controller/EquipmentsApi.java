@@ -42,7 +42,7 @@ public interface EquipmentsApi {
         summary = "Equipment list",
         tags = { "Equipment" },
         responses = {
-            @ApiResponse(responseCode = "201", description = "List returned successfully", content = {
+            @ApiResponse(responseCode = "200", description = "List returned successfully", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Equipment.class)))
             }),
             @ApiResponse(responseCode = "404", description = "Equipment not found", content = {

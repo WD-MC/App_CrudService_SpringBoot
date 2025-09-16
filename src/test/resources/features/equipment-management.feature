@@ -27,3 +27,12 @@ Feature: API de Gestion des équipements
       | Laptop X | Dell  | 10       | Alice    | attribue |
     Then la réponse du put doit avoir le code 200
     And le corps de la réponse doit avoir "Laptop X"
+
+  Scenario: Suppression d’un équipement
+    Given un équipement a les données suivantes:
+      | name   | brand | quantity | employee | status     |
+      | Mouse  | Lenovo    | 3        | Bob      | disponible |
+    When je crée l'équipement
+    When je supprime l'équipement par son ID
+    Then la réponse du delete a pour code 204
+    And l'équipement ne doit plus exister en base

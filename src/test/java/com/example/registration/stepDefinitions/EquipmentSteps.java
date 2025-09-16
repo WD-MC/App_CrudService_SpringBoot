@@ -24,7 +24,7 @@ public class EquipmentSteps {
 
     private EquipmentRequest equipmentRequest;
     private MvcResult response;
-    private EquipmentRepository equipmentRepository;
+    private final EquipmentRepository equipmentRepository;
 
     private Long lastCreatedEquipmentId;
 
@@ -144,6 +144,7 @@ public class EquipmentSteps {
         String responseBody = response.getResponse().getContentAsString();
         Map<?, ?> responseMap = objectMapper.readValue(responseBody, Map.class);
         this.lastCreatedEquipmentId = Long.valueOf(responseMap.get("id").toString());
+        System.out.println("id est creer au put: "+lastCreatedEquipmentId);
     }
 
     @And("je mets à jour l'équipement avec les données suivantes:")
@@ -174,5 +175,51 @@ public class EquipmentSteps {
     public void le_corps_de_la_reponse_du_put_doit_avoir(String expectedValue) throws Exception {
         String content = response.getResponse().getContentAsString();
         Assertions.assertTrue(content.contains(expectedValue), "La réponse ne contient pas: " + expectedValue);
+    }
+
+    /**
+     * Suppression d'un equipement
+     */
+    @Given("un équipement a les données suivantes:")
+    public void un_equipement_a_les_donnees_suivantes(io.cucumber.datatable.DataTable dataTable) {
+        Map<String, String> data = dataTable.asMaps().getFirst();
+        this.equipmentRequest = new EquipmentRequest(
+                data.get("name"),
+                data.get("brand"),
+                Integer.parseInt(data.get("quantity")),
+                data.get("employee"),
+                data.get("status")
+        );
+    }
+
+    @When("je crée l'équipement")
+    public void je_cree_lequipement() throws Exception {
+        String json = objectMapper.writeValueAsString(equipmentRequest);
+        this.response = mockMvc.perform(post("/equipments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andReturn();
+        String responseBody = response.getResponse().getContentAsString();
+        Map<?, ?> responseMap = objectMapper.readValue(responseBody, Map.class);
+        this.lastCreatedEquipmentId = Long.valueOf(responseMap.get("id").toString());
+
+    }
+
+    @When ("je supprime l'équipement par son ID")
+    public void je_supprime_lequipement_par_son_id() throws Exception {
+        this.response = mockMvc.perform(delete("/equipments/" + lastCreatedEquipmentId))
+                .andReturn();
+    }
+
+    @Then("la réponse du delete a pour code {int}")
+    public void la_reponse_du_delete_a_pour_code(int expectedStatus) {
+        int actualStatus = response.getResponse().getStatus();
+        Assertions.assertEquals(expectedStatus, actualStatus);
+    }
+
+    @And("l'équipement ne doit plus exister en base")
+    public void lequipement_ne_doit_plus_exister_en_base() {
+        boolean exists = equipmentRepository.findById(Math.toIntExact(lastCreatedEquipmentId)).isPresent();
+        Assertions.assertFalse(exists, "L'équipement existe toujours en base !");
     }
 }
